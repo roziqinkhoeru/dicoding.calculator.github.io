@@ -10,26 +10,32 @@ const calculator = {
 };
 
 // declare variable
-const results = document.getElementById("result");
+const finalResult = document.getElementById("result");
 const firstNumber = document.getElementById("fn");
 const secondNumber = document.getElementById("sn");
 const operator = document.getElementById("op");
 const equal = document.getElementById("eql");
+const buttons = document.querySelectorAll(".button");
 
 // create function
 // mengupdate nilai pada result
 function updateDisplay() {
-  results.innerText = calculator.result;
+  finalResult.innerText = calculator.result;
+  console.log("update display");
 }
 
 function updateDisplayOperation() {
   if (calculator.waitingForOperation === true) {
     secondNumber.innerText = calculator.secondNumber;
+    firstNumber.innerText = calculator.firstNumber;
     equal.innerText = "=";
   } else {
     firstNumber.innerText = calculator.firstNumber;
     operator.innerText = calculator.operator;
   }
+  console.log("update display operation");
+  console.log(calculator.firstNumber);
+  console.log(calculator.secondNumber);
 }
 
 function removeDisplayOperation() {
@@ -37,6 +43,8 @@ function removeDisplayOperation() {
   secondNumber.innerHTML = "";
   operator.innerHTML = "";
   equal.innerHTML = "";
+
+  console.log("remove display operation");
 }
 
 // mengset calculator ke awal/clear
@@ -49,31 +57,32 @@ function clearCalc() {
   calculator.waitingForOperation = false;
 
   removeDisplayOperation();
+  console.log("hapus semua operations");
 }
 
 // memasukkan angka ke dalam nilai calculator.displayNumber
 function inputDigit(digit) {
   if (calculator.waitingForOperation === true) {
     clearCalc();
-  }
-
-  if (calculator.waitingForSecondNumber === true) {
-    if (calculator.secondNumber === null || calculator.secondNumber === "0") {
-      calculator.secondNumber = digit;
-    } else if (calculator.secondNumber.length == 16) {
-      return;
-    } else {
-      calculator.secondNumber += digit;
-    }
-
-    calculator.result = calculator.secondNumber;
   } else {
-    if (calculator.result === "0") {
-      calculator.result = digit;
-    } else if (calculator.result.length == 16) {
-      return;
+    if (calculator.waitingForSecondNumber === true) {
+      if (calculator.secondNumber === null || calculator.secondNumber === "0") {
+        calculator.secondNumber = digit;
+      } else if (calculator.secondNumber.length == 16) {
+        return;
+      } else {
+        calculator.secondNumber += digit;
+      }
+
+      calculator.result = calculator.secondNumber;
     } else {
-      calculator.result += digit;
+      if (calculator.result === "0") {
+        calculator.result = digit;
+      } else if (calculator.result.length == 16) {
+        return;
+      } else {
+        calculator.result += digit;
+      }
     }
   }
 }
@@ -106,46 +115,55 @@ function handleOperator(operator) {
 
 // melakukan kalkukalasi
 function performCalc() {
-  // calculator.waitingForSecondNumber = false;
-
   if (calculator.firstNumber == null || calculator.operator == null) {
     alert("Anda belum menetapkan operator");
-
     return;
   } else if (calculator.secondNumber == null && calculator.operator !== null) {
     calculator.secondNumber = calculator.firstNumber;
-  }
-
-  let results = 0;
-  // let temp = '0';
-  if (calculator.operator === "+") {
-    results = parseInt(calculator.firstNumber) + parseInt(calculator.result);
+    calculator.waitingForSecondNumber = false;
+    calculator.waitingForOperation = true;
   } else {
-    results = parseInt(calculator.firstNumber) - parseInt(calculator.result);
+    let results = 0;
+    // let temp = '0';
+    if (calculator.waitingForOperation === false) {
+      if (calculator.operator === "+") {
+        results =
+          parseInt(calculator.firstNumber) + parseInt(calculator.result);
+      } else {
+        results =
+          parseInt(calculator.firstNumber) - parseInt(calculator.result);
+      }
+
+      calculator.result = results.toString();
+      calculator.waitingForSecondNumber = false;
+      calculator.waitingForOperation = true;
+    } else {
+      if (calculator.operator === "+") {
+        results =
+          parseInt(calculator.result) + parseInt(calculator.secondNumber);
+      } else {
+        results =
+          parseInt(calculator.result) - parseInt(calculator.secondNumber);
+      }
+      // 	temp = calculator.result;
+      // 	calculator.waitingForSecondNumber = false;
+      // } else {
+      // 	if (calculator.operator === "+") {
+      // 		results = parseInt(calculator.firstNumber) + parseInt(temp);
+      // 	} else {
+      // 		results = parseInt(calculator.firstNumber) - parseInt(temp);
+      // 	}
+
+      calculator.firstNumber = calculator.result.toString();
+      calculator.result = results.toString();
+
+      console.log(calculator.firstNumber);
+      console.log(calculator.operator);
+      console.log(calculator.secondNumber);
+      console.log(calculator.result);
+      console.log(results);
+    }
   }
-
-  calculator.result = results.toString();
-  calculator.waitingForOperation = true;
-
-  // if (calculator.waitingForSecondNumber === true) {
-  // 	if (calculator.operator === "+") {
-  // 		results = parseInt(calculator.firstNumber) + parseInt(calculator.result);
-  // 	} else {
-  // 		results = parseInt(calculator.firstNumber) - parseInt(calculator.result);
-  // 	}
-
-  // 	temp = calculator.result;
-  // 	calculator.waitingForSecondNumber = false;
-  // } else {
-  // 	if (calculator.operator === "+") {
-  // 		results = parseInt(calculator.firstNumber) + parseInt(temp);
-  // 	} else {
-  // 		results = parseInt(calculator.firstNumber) - parseInt(temp);
-  // 	}
-  // }
-
-  // calculator.firstNumber = results.toString();
-  // calculator.result = results.toString();
 }
 
 // melakukan delete
@@ -158,7 +176,6 @@ function delNumber() {
   }
 }
 
-const buttons = document.querySelectorAll(".button");
 // event handler button
 for (let button of buttons) {
   // input angka
