@@ -156,48 +156,52 @@ const buttons = document.querySelectorAll(".button");
 // event handler button
 for (let button of buttons) {
   // input angka
-  button.addEventListener("click", function (event) {
-    // mendapat objek elemen yang di klik
-    const target = event.target;
+  button.addEventListener(
+    "click",
+    function (event) {
+      // mendapat objek elemen yang di klik
+      const target = event.target;
 
-    if (target.classList.contains("clear")) {
-      clearCalc();
+      if (target.classList.contains("clear")) {
+        clearCalc();
+        updateDisplay();
+
+        return;
+      }
+
+      if (target.classList.contains("negative")) {
+        inverseNumber();
+        updateDisplay();
+
+        return;
+      }
+
+      if (target.classList.contains("equals")) {
+        performCalc();
+        updateDisplayOperation();
+        updateDisplay();
+
+        return;
+      }
+
+      if (target.classList.contains("operator")) {
+        handleOperator(target.innerText);
+        updateDisplayOperation();
+
+        return;
+      }
+
+      if (target.classList.contains("del")) {
+        delNumber();
+        updateDisplay();
+
+        return;
+      }
+
+      // button tap
+      inputDigit(target.innerText);
       updateDisplay();
-
-      return;
-    }
-
-    if (target.classList.contains("negative")) {
-      inverseNumber();
-      updateDisplay();
-
-      return;
-    }
-
-    if (target.classList.contains("equals")) {
-      performCalc();
-      updateDisplayOperation();
-      updateDisplay();
-
-      return;
-    }
-
-    if (target.classList.contains("operator")) {
-      handleOperator(target.innerText);
-      updateDisplayOperation();
-
-      return;
-    }
-
-    if (target.classList.contains("del")) {
-      delNumber();
-      updateDisplay();
-
-      return;
-    }
-
-    // button tap
-    inputDigit(target.innerText);
-    updateDisplay();
-  });
+    },
+    false
+  );
 }
