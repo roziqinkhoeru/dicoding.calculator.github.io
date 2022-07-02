@@ -9,28 +9,34 @@ const calculator = {
   waitingForOperation: false,
 };
 
-// create function
+// declare variable
+const results = document.getElementById("result");
+const firstNumber = document.getElementById("fn");
+const secondNumber = document.getElementById("sn");
+const operator = document.getElementById("op");
+const equal = document.getElementById("eql");
 
+// create function
 // mengupdate nilai pada result
 function updateDisplay() {
-  document.querySelector("#result").innerText = calculator.result;
+  results.innerText = calculator.result;
 }
 
 function updateDisplayOperation() {
   if (calculator.waitingForOperation === true) {
-    document.querySelector("#sn").innerText = calculator.secondNumber;
-    document.querySelector("#eql").innerText = "=";
+    secondNumber.innerText = calculator.secondNumber;
+    equal.innerText = "=";
   } else {
-    document.querySelector("#fn").innerText = calculator.firstNumber;
-    document.querySelector("#op").innerText = calculator.operator;
+    firstNumber.innerText = calculator.firstNumber;
+    operator.innerText = calculator.operator;
   }
 }
 
 function removeDisplayOperation() {
-  document.getElementById("fn").innerHTML = "";
-  document.getElementById("sn").innerHTML = "";
-  document.getElementById("op").innerHTML = "";
-  document.getElementById("eql").innerHTML = "";
+  firstNumber.innerHTML = "";
+  secondNumber.innerHTML = "";
+  operator.innerHTML = "";
+  equal.innerHTML = "";
 }
 
 // mengset calculator ke awal/clear
@@ -39,8 +45,8 @@ function clearCalc() {
   calculator.operator = null;
   calculator.firstNumber = null;
   calculator.secondNumber = null;
-  (calculator.waitingForSecondNumber = false),
-    (calculator.waitingForOperation = false);
+  calculator.waitingForSecondNumber = false;
+  calculator.waitingForOperation = false;
 
   removeDisplayOperation();
 }
