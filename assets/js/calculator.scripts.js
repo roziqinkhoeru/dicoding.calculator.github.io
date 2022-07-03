@@ -57,10 +57,8 @@ function inputDigit(digit) {
   } else {
     calculator.resultNumber += "";
   }
-  calculator.displayNumber = calculator.resultNumber;
 
-  console.log("panjang setela nambah =" + calculator.displayNumber.length);
-  console.log("panjang setela nambah =" + calculator.resultNumber.length);
+  calculator.displayNumber = calculator.resultNumber;
 }
 
 // fungsi ketika menekan tombol delete
