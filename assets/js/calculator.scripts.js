@@ -142,7 +142,17 @@ function performCalculation() {
     }
   }
 
+  // objek yang akan dikirimkan sebagai argumen fungsi putHistory()
+  const history = {
+    firstNumber: calculator.firstNumber,
+    secondNumber: calculator.secondNumber,
+    operator: calculator.operator,
+    result: calculator.resultNumber,
+  };
+
+  putHistory(history);
   calculator.displayNumber = calculator.resultNumber;
+  renderHistory();
 }
 
 // event saat menekan semua tombol

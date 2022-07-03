@@ -152,6 +152,7 @@ hr {
 
 .history_content {
   padding: 1rem 1.5rem;
+  width: 100%;
 }
 
 .history_content h2 {
@@ -173,6 +174,7 @@ th,
 td {
   text-align: center;
   padding: 1rem;
+  font-size: 1.25rem;
 }
 
 th {
@@ -181,7 +183,7 @@ th {
 }
 
 tr:nth-child(even) {
-  background-color: #d2d2d2;
+  background-color: rgb(176, 120, 17, 0.4);
 }
 
 footer {
