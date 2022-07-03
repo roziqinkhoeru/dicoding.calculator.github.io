@@ -77,6 +77,14 @@ main {
   box-shadow: 0 3px 0.625rem 0 rgba(0, 0, 0, 0.2);
 }
 
+section#calculator {
+  margin-bottom: 3rem;
+}
+
+section#history {
+  margin-bottom: 3rem;
+}
+
 .display-result {
   margin-right: 0.625rem;
   padding: 1rem 0;
