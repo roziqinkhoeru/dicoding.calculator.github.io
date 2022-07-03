@@ -1,223 +1,122 @@
-// set tampilan
-// create object
+// object calculator
 const calculator = {
-  result: "0", //angka yang muncul pada result
-  operator: null, //operator yang dipilih
-  firstNumber: null, //angka pertama yang diinputkan
-  secondNumber: null,
-  waitingForSecondNumber: false, //logika untuk menunggu input angka yang kedua
-  waitingForOperation: false,
+  displayNumber: "0",
+  operator: null,
+  firstNumber: null,
+  waitingForSecondNumber: false,
 };
 
-// declare variable
-const finalResult = document.getElementById("result");
-const firstNumber = document.getElementById("fn");
-const secondNumber = document.getElementById("sn");
-const operator = document.getElementById("op");
-const equal = document.getElementById("eql");
+// declare var
+const firstNumber = document.getElementById("firstNumber");
+const secondNumber = document.getElementById("secondNumber");
+const operation = document.getElementById("operation");
+const equal = document.getElementById("equal");
+const displayNumber = document.getElementById("displayNumber");
 const buttons = document.querySelectorAll(".button");
 
-// create function
-// mengupdate nilai pada result
+// menampilkan angka ke dalam calculator.displayNumber
 function updateDisplay() {
-  finalResult.innerText = calculator.result;
+  displayNumber.innerText = calculator.displayNumber;
 }
 
-function updateDisplayOperation() {
-  if (calculator.waitingForOperation === true) {
-    secondNumber.innerText = calculator.secondNumber;
-    firstNumber.innerText = calculator.firstNumber;
-    equal.innerText = "=";
-  } else {
-    firstNumber.innerText = calculator.firstNumber;
-    operator.innerText = calculator.operator;
-  }
-}
-
-function removeDisplayOperation() {
-  firstNumber.innerHTML = "";
-  secondNumber.innerHTML = "";
-  operator.innerHTML = "";
-  equal.innerHTML = "";
-}
-
-// mengset calculator ke awal/clear
-function clearCalc() {
-  calculator.result = "0";
+// fungsi ketika menekan CE
+function clearCalculator() {
+  calculator.displayNumber = "0";
   calculator.operator = null;
   calculator.firstNumber = null;
-  calculator.secondNumber = null;
   calculator.waitingForSecondNumber = false;
-  calculator.waitingForOperation = false;
-
-  removeDisplayOperation();
 }
 
-// memasukkan angka ke dalam nilai calculator.displayNumber
+// fungsi ketika menekan angka
 function inputDigit(digit) {
-  if (calculator.waitingForOperation === true) {
-    clearCalc();
-  } else {
-    if (calculator.waitingForSecondNumber === true) {
-      if (calculator.secondNumber === null || calculator.secondNumber === "0") {
-        calculator.secondNumber = digit;
-      } else if (calculator.secondNumber.length == 16) {
-        return;
-      } else {
-        calculator.secondNumber += digit;
-      }
-
-      calculator.result = calculator.secondNumber;
+  if (calculator.displayNumber.length < 16) {
+    if (calculator.displayNumber === "0") {
+      calculator.displayNumber = digit;
     } else {
-      if (calculator.result === "0") {
-        calculator.result = digit;
-      } else if (calculator.result.length == 16) {
-        return;
-      } else {
-        calculator.result += digit;
-      }
+      calculator.displayNumber += digit;
     }
-  }
-}
-
-// klik button negative
-function inverseNumber() {
-  if (calculator.result === "0") {
-    return;
-  } else if (calculator.waitingForSecondNumber === false) {
-    calculator.result = calculator.result * -1;
   } else {
-    calculator.secondNumber = calculator.secondNumber * -1;
-    calculator.result = calculator.secondNumber;
+    calculator.displayNumber += "";
   }
+  console.log("panjang setela nambah =" + calculator.displayNumber.length);
 }
 
-// klik button operator
+// fungsi ketika menekan tombol negative
+function inverseNumber() {
+  if (calculator.displayNumber === "0") {
+    return;
+  }
+  let inverse = parseInt(calculator.displayNumber) * -1;
+  calculator.displayNumber = inverse.toString();
+}
+
+// fungsi ketika menekan tombol operator
 function handleOperator(operator) {
   if (!calculator.waitingForSecondNumber) {
     calculator.operator = operator;
     calculator.waitingForSecondNumber = true;
-    calculator.firstNumber = calculator.result;
+    calculator.firstNumber = calculator.displayNumber;
 
-    // mengatur nilai secondNumber
-    // calculator.secondNumber = '0';
+    // mengatur ulang nilai display number supaya tombol selanjutnya dimulai dari angka pertama lagi
+    calculator.displayNumber = "0";
   } else {
-    alert("operator sudah ditetapkan");
+    alert("Operator sudah ditetapkan");
   }
 }
 
-// melakukan kalkukalasi
-function performCalc() {
+// fungsi ketika menekan tombo ==
+function performCalculation() {
   if (calculator.firstNumber == null || calculator.operator == null) {
     alert("Anda belum menetapkan operator");
     return;
-  } else if (calculator.secondNumber == null && calculator.operator !== null) {
-    calculator.secondNumber = calculator.firstNumber;
-    calculator.waitingForSecondNumber = false;
-    calculator.waitingForOperation = true;
-  } else {
-    let results = 0;
-    // let temp = '0';
-    if (calculator.waitingForOperation === false) {
-      if (calculator.operator === "+") {
-        results =
-          parseInt(calculator.firstNumber) + parseInt(calculator.result);
-      } else {
-        results =
-          parseInt(calculator.firstNumber) - parseInt(calculator.result);
-      }
-
-      calculator.result = results.toString();
-      calculator.waitingForSecondNumber = false;
-      calculator.waitingForOperation = true;
-    } else {
-      if (calculator.operator === "+") {
-        results =
-          parseInt(calculator.result) + parseInt(calculator.secondNumber);
-      } else {
-        results =
-          parseInt(calculator.result) - parseInt(calculator.secondNumber);
-      }
-      // 	temp = calculator.result;
-      // 	calculator.waitingForSecondNumber = false;
-      // } else {
-      // 	if (calculator.operator === "+") {
-      // 		results = parseInt(calculator.firstNumber) + parseInt(temp);
-      // 	} else {
-      // 		results = parseInt(calculator.firstNumber) - parseInt(temp);
-      // 	}
-
-      calculator.firstNumber = calculator.result.toString();
-      calculator.result = results.toString();
-
-      // console.log(calculator.firstNumber);
-      // console.log(calculator.operator);
-      // console.log(calculator.secondNumber);
-      // console.log(calculator.result);
-      // console.log(results);
-    }
   }
+
+  let result = 0;
+  if (calculator.operator === "+") {
+    result =
+      parseInt(calculator.firstNumber) + parseInt(calculator.displayNumber);
+  } else {
+    result =
+      parseInt(calculator.firstNumber) - parseInt(calculator.displayNumber);
+  }
+
+  calculator.displayNumber = result;
 }
 
-// melakukan delete
-function delNumber() {
-  if (calculator.result.length == 1) {
-    calculator.result = "0";
-  } else {
-    // calculator.result = calculator.result.substring(0, calculator.result.length-1);
-    calculator.result = calculator.result.slice(0, -1);
-  }
-}
+// event saat menekan semua tombpl
+for (const button of buttons) {
+  button.addEventListener("click", function (event) {
+    // mendapatkan objek elemen yang diklik
+    const target = event.target;
 
-// event handler button
-for (let button of buttons) {
-  // input angka
-  button.addEventListener(
-    "click",
-    function (event) {
-      // mendapat objek elemen yang di klik
-      const target = event.target;
-
-      if (target.classList.contains("clear")) {
-        clearCalc();
-        updateDisplay();
-
-        return;
-      }
-
-      if (target.classList.contains("negative")) {
-        inverseNumber();
-        updateDisplay();
-
-        return;
-      }
-
-      if (target.classList.contains("equals")) {
-        performCalc();
-        updateDisplayOperation();
-        updateDisplay();
-
-        return;
-      }
-
-      if (target.classList.contains("operator")) {
-        handleOperator(target.innerText);
-        updateDisplayOperation();
-
-        return;
-      }
-
-      if (target.classList.contains("del")) {
-        delNumber();
-        updateDisplay();
-
-        return;
-      }
-
-      // button tap
-      inputDigit(target.innerText);
+    // CLEAR BUTTTON
+    if (target.classList.contains("clear")) {
+      clearCalculator();
       updateDisplay();
-    },
-    false
-  );
+      return; // agar kode dibawahnya tidak tereksekusi lagi
+    }
+
+    // NEGATIVE BUTTON
+    if (target.classList.contains("negative")) {
+      inverseNumber();
+      updateDisplay();
+      return;
+    }
+
+    // EQUALS BUTTON
+    if (target.classList.contains("equals")) {
+      performCalculation();
+      updateDisplay();
+      return;
+    }
+
+    // OPERATOR BUTTON
+    if (target.classList.contains("operator")) {
+      handleOperator(target.innerText);
+      return;
+    }
+
+    inputDigit(target.innerText);
+    updateDisplay();
+  });
 }

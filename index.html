@@ -72,37 +72,40 @@
       <div class="container">
         <div class="display-result">
           <p class="operation">
-            <span id="fn"></span>
-            <span id="op"></span>
-            <span id="sn"></span>
-            <span id="eql"></span>
+            <span id="firstNumber"></span>
+            <span id="operation"></span>
+            <span id="secondNumber"></span>
+            <span id="equal"></span>
           </p>
-          <p id="result">0</p>
+          <p id="displayNumber">0</p>
         </div>
         <hr />
         <div class="field">
           <div class="button">7</div>
           <div class="button">8</div>
           <div class="button">9</div>
-          <div class="button del"><i class="fa-solid fa-delete-left"></i></div>
+          <div class="button del" id="deleteBtn">
+            <i class="fa-solid fa-delete-left"></i>
+            <div class="screenDelete"></div>
+          </div>
         </div>
         <div class="field">
           <div class="button">4</div>
           <div class="button">5</div>
           <div class="button">6</div>
-          <div class="button operator">-</div>
+          <div class="button operator" id="minBtn">-</div>
         </div>
         <div class="field">
           <div class="button">1</div>
           <div class="button">2</div>
           <div class="button">3</div>
-          <div class="button operator">+</div>
+          <div class="button operator" id="plusBtn">+</div>
         </div>
         <div class="field">
-          <div class="button clear">CE</div>
+          <div class="button clear" id="clearBtn">CE</div>
           <div class="button">0</div>
-          <div class="button negative">+/-</div>
-          <div class="button equals">=</div>
+          <div class="button negative" id="plusMinusBtn">+/-</div>
+          <div class="button equals" id="equalBtn">=</div>
         </div>
       </div>
     </main>
