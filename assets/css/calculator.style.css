@@ -144,7 +144,7 @@ hr {
   position: relative;
 }
 
-.button.del .screenDelete {
+.button.del .screen_delete {
   position: absolute;
   inset: 0;
   background: transparent;
