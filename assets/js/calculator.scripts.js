@@ -44,6 +44,10 @@ function clearCalculator() {
 
 // fungsi ketika menekan angka
 function inputDigit(digit) {
+  if (calculator.waitingForSecondOperation === true) {
+    clearCalculator();
+  }
+
   if (calculator.resultNumber.length < 16) {
     if (calculator.resultNumber === "0") {
       calculator.resultNumber = digit;
@@ -54,6 +58,7 @@ function inputDigit(digit) {
     calculator.resultNumber += "";
   }
   calculator.displayNumber = calculator.resultNumber;
+
   console.log("panjang setela nambah =" + calculator.displayNumber.length);
   console.log("panjang setela nambah =" + calculator.resultNumber.length);
 }
@@ -103,23 +108,35 @@ function handleOperator(operator) {
 
 // fungsi ketika menekan tombo sama dengan
 function performCalculation() {
-  if (calculator.firstNumber == null || calculator.operator == null) {
-    alert("Anda belum menetapkan operator");
-    return;
-  }
+  if (calculator.waitingForSecondOperation === false) {
+    if (calculator.firstNumber == null || calculator.operator == null) {
+      alert("Anda belum menetapkan operator");
+      return;
+    }
 
-  if (calculator.operator === "+") {
-    calculator.resultNumber =
-      parseInt(calculator.firstNumber) + parseInt(calculator.resultNumber);
+    if (calculator.operator === "+") {
+      calculator.resultNumber =
+        parseInt(calculator.firstNumber) + parseInt(calculator.resultNumber);
+    } else {
+      calculator.resultNumber =
+        parseInt(calculator.firstNumber) - parseInt(calculator.resultNumber);
+    }
+
+    calculator.secondNumber = calculator.displayNumber;
+    calculator.waitingForSecondNumber = false;
+    calculator.waitingForSecondOperation = true;
   } else {
-    calculator.resultNumber =
-      parseInt(calculator.firstNumber) - parseInt(calculator.resultNumber);
+    calculator.firstNumber = calculator.resultNumber;
+    if (calculator.operator === "+") {
+      calculator.resultNumber =
+        parseInt(calculator.resultNumber) + parseInt(calculator.secondNumber);
+    } else {
+      calculator.resultNumber =
+        parseInt(calculator.resultNumber) - parseInt(calculator.secondNumber);
+    }
   }
 
-  calculator.secondNumber = calculator.displayNumber;
   calculator.displayNumber = calculator.resultNumber;
-  calculator.waitingForSecondNumber = false;
-  calculator.waitingForSecondOperation = true;
 }
 
 // event saat menekan semua tombol
