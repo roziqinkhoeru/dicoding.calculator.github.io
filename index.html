@@ -69,45 +69,66 @@
     </header>
 
     <main>
-      <div class="container">
-        <div class="display-result">
-          <p class="operation">
-            <span id="firstNumber"></span>
-            <span id="operation"></span>
-            <span id="secondNumber"></span>
-            <span id="equal"></span>
-          </p>
-          <p id="displayNumber">0</p>
-        </div>
-        <hr />
-        <div class="field">
-          <div class="button">7</div>
-          <div class="button">8</div>
-          <div class="button">9</div>
-          <div class="button del">
-            <i class="fa-solid fa-delete-left"></i>
-            <div class="screen_delete delete_btn" id="deleteBtn"></div>
+      <section id="calculator">
+        <div class="container">
+          <h1>Simple Calculator</h1>
+          <div class="display-result">
+            <p class="operation">
+              <span id="firstNumber"></span>
+              <span id="operation"></span>
+              <span id="secondNumber"></span>
+              <span id="equal"></span>
+            </p>
+            <p id="displayNumber">0</p>
+          </div>
+          <hr />
+          <div class="field">
+            <div class="button">7</div>
+            <div class="button">8</div>
+            <div class="button">9</div>
+            <div class="button del">
+              <i class="fa-solid fa-delete-left"></i>
+              <div class="screen_delete delete_btn" id="deleteBtn"></div>
+            </div>
+          </div>
+          <div class="field">
+            <div class="button">4</div>
+            <div class="button">5</div>
+            <div class="button">6</div>
+            <div class="button operator" id="minBtn">-</div>
+          </div>
+          <div class="field">
+            <div class="button">1</div>
+            <div class="button">2</div>
+            <div class="button">3</div>
+            <div class="button operator" id="plusBtn">+</div>
+          </div>
+          <div class="field">
+            <div class="button clear" id="clearBtn">CE</div>
+            <div class="button">0</div>
+            <div class="button negative" id="plusMinusBtn">+/-</div>
+            <div class="button equals" id="equalBtn">=</div>
           </div>
         </div>
-        <div class="field">
-          <div class="button">4</div>
-          <div class="button">5</div>
-          <div class="button">6</div>
-          <div class="button operator" id="minBtn">-</div>
+      </section>
+      <section id="history">
+        <div class="container">
+          <div class="history_content">
+            <h2>Riwayat Perhitungan</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Angka Pertama</th>
+                  <th>Operator</th>
+                  <th>Angka Kedua</th>
+                  <th>Hasil</th>
+                </tr>
+              </thead>
+              <tbody id="historyList"></tbody>
+            </table>
+          </div>
         </div>
-        <div class="field">
-          <div class="button">1</div>
-          <div class="button">2</div>
-          <div class="button">3</div>
-          <div class="button operator" id="plusBtn">+</div>
-        </div>
-        <div class="field">
-          <div class="button clear" id="clearBtn">CE</div>
-          <div class="button">0</div>
-          <div class="button negative" id="plusMinusBtn">+/-</div>
-          <div class="button equals" id="equalBtn">=</div>
-        </div>
-      </div>
+      </section>
     </main>
 
     <footer>
