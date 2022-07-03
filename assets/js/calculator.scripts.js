@@ -21,7 +21,6 @@ const buttons = document.querySelectorAll(".button");
 // mengupdate nilai pada result
 function updateDisplay() {
   finalResult.innerText = calculator.result;
-  console.log("update display");
 }
 
 function updateDisplayOperation() {
@@ -33,9 +32,6 @@ function updateDisplayOperation() {
     firstNumber.innerText = calculator.firstNumber;
     operator.innerText = calculator.operator;
   }
-  console.log("update display operation");
-  console.log(calculator.firstNumber);
-  console.log(calculator.secondNumber);
 }
 
 function removeDisplayOperation() {
@@ -43,8 +39,6 @@ function removeDisplayOperation() {
   secondNumber.innerHTML = "";
   operator.innerHTML = "";
   equal.innerHTML = "";
-
-  console.log("remove display operation");
 }
 
 // mengset calculator ke awal/clear
@@ -57,7 +51,6 @@ function clearCalc() {
   calculator.waitingForOperation = false;
 
   removeDisplayOperation();
-  console.log("hapus semua operations");
 }
 
 // memasukkan angka ke dalam nilai calculator.displayNumber
@@ -157,11 +150,11 @@ function performCalc() {
       calculator.firstNumber = calculator.result.toString();
       calculator.result = results.toString();
 
-      console.log(calculator.firstNumber);
-      console.log(calculator.operator);
-      console.log(calculator.secondNumber);
-      console.log(calculator.result);
-      console.log(results);
+      // console.log(calculator.firstNumber);
+      // console.log(calculator.operator);
+      // console.log(calculator.secondNumber);
+      // console.log(calculator.result);
+      // console.log(results);
     }
   }
 }
