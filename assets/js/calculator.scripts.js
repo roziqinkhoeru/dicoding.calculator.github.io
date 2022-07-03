@@ -65,17 +65,21 @@ function inputDigit(digit) {
 
 // fungsi ketika menekan tombol delete
 function deleteNumber() {
-  if (calculator.postiveNumber === true) {
-    if (calculator.resultNumber.length === 1) {
-      calculator.resultNumber = "0";
-    } else {
-      calculator.resultNumber = calculator.resultNumber.slice(0, -1);
-    }
+  if (calculator.waitingForSecondOperation === true) {
+    clearCalculator();
   } else {
-    if (calculator.resultNumber.length === 2) {
-      calculator.resultNumber = "0";
+    if (calculator.postiveNumber === true) {
+      if (calculator.resultNumber.length === 1) {
+        calculator.resultNumber = "0";
+      } else {
+        calculator.resultNumber = calculator.resultNumber.slice(0, -1);
+      }
     } else {
-      calculator.resultNumber = calculator.resultNumber.slice(0, -1);
+      if (calculator.resultNumber.length === 2) {
+        calculator.resultNumber = "0";
+      } else {
+        calculator.resultNumber = calculator.resultNumber.slice(0, -1);
+      }
     }
   }
 
@@ -95,15 +99,19 @@ function inverseNumber() {
 
 // fungsi ketika menekan tombol operator
 function handleOperator(operator) {
-  // if (calculator.waitingForSecondNumber === false) {
-  calculator.operator = operator;
-  calculator.waitingForSecondNumber = true;
-  calculator.firstNumber = calculator.displayNumber;
+  if (
+    calculator.waitingForSecondNumber === false &&
+    calculator.waitingForSecondOperation === true
+  ) {
+    alert("Operator sudah ditetapkan. Kalkulator anda kan ter-reset");
+    window.location.reload();
+  } else {
+    calculator.operator = operator;
+    calculator.waitingForSecondNumber = true;
+    calculator.firstNumber = calculator.displayNumber;
 
-  calculator.resultNumber = "0";
-  // } else {
-  //   alert("Operator sudah ditetapkan");
-  // }
+    calculator.resultNumber = "0";
+  }
 }
 
 // fungsi ketika menekan tombo sama dengan
