@@ -6,7 +6,7 @@
 
 # 🧮 Simple Calculator
 
-This program was created using **HTML (Hypertext Markup Language)**, **CSS (Cascading Style Sheet)**, and **JavaScript**.
+This program was created using **HTML (Hypertext Markup Language)**, **CSS (Cascading Style Sheet)**, **JavaScript** and **fontawesome v.6**.
 
 ## 📛 Badges
 
