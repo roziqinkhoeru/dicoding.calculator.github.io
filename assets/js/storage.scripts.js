@@ -54,5 +54,12 @@ function renderHistory() {
   }
 }
 
+const removeButton = document.getElementById("removeBtn");
+// clear history
+removeButton.addEventListener("click", function (event) {
+  localStorage.removeItem(CACHE_KEY);
+  renderHistory();
+});
+
 // agar history muncul di awal membuka page
 renderHistory();
