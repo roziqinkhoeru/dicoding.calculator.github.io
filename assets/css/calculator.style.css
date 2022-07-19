@@ -97,6 +97,8 @@ section#history {
 }
 
 #displayNumber {
+  overflow-x: auto;
+
   font-size: 3.125rem;
 
   color: purple;
